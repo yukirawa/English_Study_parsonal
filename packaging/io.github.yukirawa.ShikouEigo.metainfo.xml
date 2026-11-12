@@ -39,9 +39,9 @@
   </recommends>
 
   <releases>
-    <release version="0.1.0" date="2026-11-12">
+    <release version="0.1.0" date="2026-11-13">
       <description>
-        <p>最初の実装。本文入力、単語抽出、日本語訳の手動入力、翻訳状態表示、保存と読み込みを追加しました。</p>
+        <p>最初の実装。本文入力、出現位置ごとの単語抽出、日本語訳の手動入力、翻訳状態表示、保存と読み込みを追加しました。</p>
       </description>
     </release>
   </releases>

@@ -13,6 +13,7 @@ pub struct StudyBackend {
     source_text: String,
     translations_json: String,
     tokens_json: String,
+    word_keys: Vec<String>,
     error_message: String,
     current_file: String,
     dirty: bool,
@@ -43,9 +44,13 @@ impl StudyBackend {
     qproperty!(
         "translatedCount",
         Member = translated_count,
-        Notify = tokens_changed
+        Notify = translations_changed
     );
-    qproperty!("totalCount", Member = total_count, Notify = tokens_changed);
+    qproperty!(
+        "totalCount",
+        Member = total_count,
+        Notify = translations_changed
+    );
 
     /// Update the English source text. Translations already entered are kept
     /// when a word remains in the text.
@@ -60,6 +65,7 @@ impl StudyBackend {
         self.dirty = true;
         self.rebuild_tokens();
         self.source_changed();
+        self.translations_changed();
         self.dirty_changed();
     }
 
@@ -73,9 +79,8 @@ impl StudyBackend {
 
         self.document.set_translation(key, translation.clone());
         self.dirty = true;
-        self.rebuild_tokens();
+        self.refresh_translation_state();
         self.translations_changed();
-        self.tokens_changed();
         self.dirty_changed();
     }
 
@@ -85,9 +90,8 @@ impl StudyBackend {
     fn clear_translation(&mut self, key: &String) {
         if self.document.translations.remove(key).is_some() {
             self.dirty = true;
-            self.rebuild_tokens();
+            self.refresh_translation_state();
             self.translations_changed();
-            self.tokens_changed();
             self.dirty_changed();
         }
     }
@@ -181,7 +185,7 @@ impl StudyBackend {
     fn rebuild_tokens(&mut self) {
         let lines = tokenize_lines(&self.document.source_text);
         let mut total = 0u32;
-        let mut translated = 0u32;
+        self.word_keys.clear();
         let mut payload_lines = Vec::with_capacity(lines.len());
 
         for line in lines {
@@ -192,9 +196,7 @@ impl StudyBackend {
 
                 if token.is_word {
                     total += 1;
-                    if is_translated {
-                        translated += 1;
-                    }
+                    self.word_keys.push(token.key.clone());
                 }
 
                 payload_tokens.push(TokenPayload {
@@ -209,9 +211,20 @@ impl StudyBackend {
         }
 
         self.total_count = total;
-        self.translated_count = translated;
         self.tokens_json =
             serde_json::to_string(&payload_lines).unwrap_or_else(|_| "[]".to_owned());
+        self.refresh_translation_state();
+    }
+
+    /// Update counts and the compact translation map without rebuilding the
+    /// QML token model. This keeps the focused translation field stable while
+    /// the user types.
+    fn refresh_translation_state(&mut self) {
+        self.translated_count = self
+            .word_keys
+            .iter()
+            .filter(|key| !self.document.translation(key).trim().is_empty())
+            .count() as u32;
         self.translations_json =
             serde_json::to_string(&self.document.translations).unwrap_or_else(|_| "{}".to_owned());
     }

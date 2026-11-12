@@ -10,6 +10,7 @@ fn main() {
         "qt/qml/shikou_eigo/icons"
     );
     QApp::new()
+        .application_name("試験向英語学習")
         .register::<backend::StudyBackend>()
         .load_qml(include_bytes!("Main.qml"))
         .run();

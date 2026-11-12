@@ -49,8 +49,8 @@ ApplicationWindow {
             root.refreshTokens()
         }
         onTranslations_changed: {
-            // Translation edits are already visible in their TextField. Do not
-            // rebuild the token view here, because that would steal focus.
+            // Translation edits are already visible in their TextField. Only
+            // the counter and saved map are refreshed on the Rust side.
         }
         onDirty_changed: dirtyDot.visible = backend.dirty
         onStatus_changed: statusLabel.text = backend.statusMessage
