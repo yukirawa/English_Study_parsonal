@@ -13,6 +13,7 @@ Rust + Qt 6 / QML で作る Linux 向け英語学習アプリです。英文本�
 - KDE Plasma 向けの Breeze 風デザイン
 - ライト／ダークテーマ対応
 - Tab / Shift+Tab での翻訳欄移動
+- 未保存変更時の終了確認
 
 ## 必要環境
 

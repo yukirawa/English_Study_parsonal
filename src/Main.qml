@@ -63,6 +63,13 @@ ApplicationWindow {
 
     property var tokenLines: []
 
+    onClosing: function(close) {
+        if (backend.dirty) {
+            close.accepted = false
+            closeDialog.open()
+        }
+    }
+
     function refreshTokens() {
         try {
             tokenLines = JSON.parse(backend.tokensJson || "[]")
@@ -446,6 +453,19 @@ ApplicationWindow {
         onAccepted: backend.newDocument()
         Label {
             text: qsTr("現在の変更は保存されていません。")
+            color: theme.text
+        }
+    }
+
+    Dialog {
+        id: closeDialog
+        title: qsTr("未保存の変更があります")
+        modal: true
+        anchors.centerIn: Overlay.overlay
+        standardButtons: Dialog.Discard | Dialog.Cancel
+        onAccepted: Qt.quit()
+        Label {
+            text: qsTr("変更を破棄して終了しますか？")
             color: theme.text
         }
     }
