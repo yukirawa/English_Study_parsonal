@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=試験向英語学習
+GenericName=英語学習ツール
+Comment=英単語の上に日本語訳を手動で書き込む学習アプリ
+Exec=shikou-eigo
+TryExec=shikou-eigo
+Icon=io.github.yukirawa.ShikouEigo
+Terminal=false
+Categories=Education;Languages;Qt;
+Keywords=english;study;translation;vocabulary;英語;学習;翻訳;
+StartupWMClass=shikou-eigo
+X-KDE-StartupNotify=true

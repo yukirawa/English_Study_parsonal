@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.yukirawa.ShikouEigo</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+
+  <name>試験向英語学習</name>
+  <summary>英単語の上に日本語訳を書き込む学習ツール</summary>
+  <developer id="io.github.yukirawa">
+    <name>yukirawa</name>
+  </developer>
+
+  <description>
+    <p>試験向英語学習は、英文本文を入力し、各英単語の上に自分で日本語訳を書き込める Rust + Qt 6 の Linux アプリです。自動翻訳は行わず、学習者が自分の理解で訳語を入力します。</p>
+    <ul>
+      <li>英文を入力すると単語を自動抽出します</li>
+      <li>各単語に日本語訳を手動入力できます</li>
+      <li>翻訳済みの単語はひと目で分かります</li>
+      <li>学習データは JSON として保存・再読込できます</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">io.github.yukirawa.ShikouEigo.desktop</launchable>
+  <url type="homepage">https://github.com/yukirawa/English_Study_parsonal</url>
+  <url type="bugtracker">https://github.com/yukirawa/English_Study_parsonal/issues</url>
+
+  <categories>
+    <category>Education</category>
+    <category>Languages</category>
+  </categories>
+
+  <provides>
+    <binary>shikou-eigo</binary>
+  </provides>
+
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+  </recommends>
+
+  <releases>
+    <release version="0.1.0" date="2026-11-12">
+      <description>
+        <p>最初の実装。本文入力、単語抽出、日本語訳の手動入力、翻訳状態表示、保存と読み込みを追加しました。</p>
+      </description>
+    </release>
+  </releases>
+
+  <content_rating type="oars-1.1"/>
+</component>

@@ -1,0 +1,9 @@
+target/
+build/
+dist/
+CMakeFiles/
+CMakeCache.txt
+*.user
+*.autosave
+*.swp
+.DS_Store
