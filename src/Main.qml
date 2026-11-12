@@ -441,7 +441,7 @@ ApplicationWindow {
 
     Shortcut {
         sequence: "Ctrl+Q"
-        onActivated: Qt.quit()
+        onActivated: root.close()
     }
 
     Dialog {
