@@ -26,7 +26,7 @@ Rust + Qt 6 / QML で作る Linux 向け英語学習アプリです。英文本�
 Arch Linux の場合:
 
 ```bash
-sudo pacman -S --needed rust qt6-base qt6-declarative cmake ninja
+sudo pacman -S --needed rust qt6-base qt6-declarative qt6-svg cmake ninja
 ```
 
 ## ビルドと実行
